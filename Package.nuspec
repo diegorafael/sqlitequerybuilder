@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>SQLiteQueryBuilder</id>
+    <version>0.1</version>
+    <authors>Diego Rafael O. Souza</authors>
+    <owners>Diego Rafael O. Souza</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A SQL command builder to help you express 'select' commands by object notation, making easier to write conditional queries and with no hard typed strings on your code</description>
+    <tags>SQLite QueryBuilder SQL Query Map Mapping</tags>
+    <dependencies>
+      <dependency id="SampleDependency" version="1.0" />
+    </dependencies>
+  </metadata>
+</package>
