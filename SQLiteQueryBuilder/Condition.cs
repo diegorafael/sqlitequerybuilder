@@ -14,7 +14,7 @@ namespace SQLiteQueryBuilder
         public Condition(string leftSidePropertyName,
                          BoolComparisonType comparison = BoolComparisonType.Equals,
                          object rightSideValueOrProperty = null,
-                         BoolOperatorType sufixOperator = BoolOperatorType.And) : base(typeof(T),
+                         LogicalOperatorType sufixOperator = LogicalOperatorType.And) : base(typeof(T),
                                                                                        null,
                                                                                        leftSidePropertyName,
                                                                                        typeof(K),
@@ -29,7 +29,7 @@ namespace SQLiteQueryBuilder
                          BoolComparisonType comparison = BoolComparisonType.Equals,
                          object rightSideValueOrProperty = null,
                          string rightSideAlias = null,
-                         BoolOperatorType sufixOperator = BoolOperatorType.And) : base(typeof(T),
+                         LogicalOperatorType sufixOperator = LogicalOperatorType.And) : base(typeof(T),
                                                                                        leftSideAlias,
                                                                                        leftSidePropertyName,
                                                                                        typeof(K),
@@ -54,7 +54,7 @@ namespace SQLiteQueryBuilder
         const string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
         const string timeFormat = @"hh\:mm\:ss";
         
-        public Condition(Type leftType, string leftSideAlias, string leftSidePropertyName, Type rightType, string rightSideAlias, object rightSideValueOrProperty = null, BoolComparisonType comparison = BoolComparisonType.Equals, BoolOperatorType sufixOperator = BoolOperatorType.And)
+        public Condition(Type leftType, string leftSideAlias, string leftSidePropertyName, Type rightType, string rightSideAlias, object rightSideValueOrProperty = null, BoolComparisonType comparison = BoolComparisonType.Equals, LogicalOperatorType sufixOperator = LogicalOperatorType.And)
         {
             LeftType = leftType;
             RightType = rightType;

@@ -11,10 +11,10 @@ namespace SQLiteQueryBuilder
         string newLine = "\n";
         string blockFormat = "( {0} )";
 
-        public ExpressionBlock(params IBoolExpression[] expression) : this(BoolOperatorType.And, expression)
+        public ExpressionBlock(params IBoolExpression[] expression) : this(LogicalOperatorType.And, expression)
         { }
 
-        public ExpressionBlock(BoolOperatorType logicalOperator, params IBoolExpression[] expression)
+        public ExpressionBlock(LogicalOperatorType logicalOperator, params IBoolExpression[] expression)
         {
             Expressions = new List<IBoolExpression>();
             LogicalOperator = logicalOperator;

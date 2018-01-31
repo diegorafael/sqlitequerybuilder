@@ -6,7 +6,7 @@ namespace SQLiteQueryBuilder
 {
     public abstract class BaseBoolExpression : IBoolExpression
     {
-        public BoolOperatorType LogicalOperator { get; protected set; }
+        public LogicalOperatorType LogicalOperator { get; protected set; }
 
         public abstract string GetStatement();
 

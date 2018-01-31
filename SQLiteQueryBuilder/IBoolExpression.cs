@@ -4,7 +4,7 @@ namespace SQLiteQueryBuilder
 {
     public interface IBoolExpression
     {
-        BoolOperatorType LogicalOperator { get; }
+        LogicalOperatorType LogicalOperator { get; }
         string GetStatement();
         string GetLogicalOperatorString();
     }
