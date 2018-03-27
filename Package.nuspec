@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>SQLiteQueryBuilder</id>
-    <version>0.0.1.002</version>
+    <version>0.0.1.003</version>
     <authors>Diego Rafael O. Souza</authors>
     <owners>Diego Rafael O. Souza</owners>
     <licenseUrl>https://github.com/diegorafael/sqlitequerybuilder/blob/master/LICENSE</licenseUrl>
@@ -22,5 +22,6 @@
     <file src="SQLiteQueryBuilder\bin\Release\SQLiteQueryBuilder.dll" target="lib\netstandard1.0\SQLiteQueryBuilder.dll" />
     <file src="SQLiteQueryBuilder\bin\Release\SQLiteQueryBuilder.dll" target="lib\portable-net45+netcore45\SQLiteQueryBuilder.dll" />
     <file src="SQLiteQueryBuilder\bin\Release\SQLiteQueryBuilder.dll" target="lib\portable-net45+wp8\SQLiteQueryBuilder.dll" />
+    <file src="SQLiteQueryBuilder\bin\Release\SQLiteQueryBuilder.dll" target="lib\MonoAndroid10\SQLiteQueryBuilder.dll" />
   </files>
 </package>
