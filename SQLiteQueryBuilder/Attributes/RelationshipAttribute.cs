@@ -1,5 +1,4 @@
-﻿using SQLite;
-using System;
+﻿using System;
 
 namespace SQLiteQueryBuilder.Attributes
 {

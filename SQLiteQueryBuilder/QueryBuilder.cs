@@ -38,9 +38,12 @@ namespace SQLiteQueryBuilder
         Join[] joins = new Join[] { };
         IBoolExpression[] whereRestrictions = new IBoolExpression[] { };
         string[] columnsWithAlias;
+        string aditionalSelectClauses = string.Empty;
 
         const string newLine = "\n";
-        const string selectStructure = "SELECT DISTINCT {0} " + newLine;
+        const string distinct = "DISTINCT";
+        const string top = "TOP {0}";
+        const string selectStructure = "SELECT {0} {1} " + newLine;
         const string deleteStructure = "DELETE " + newLine;
         const string countStructure = "SELECT COUNT(*) " + newLine;
         const string fromWithAliasStructure = "FROM {0} {1} " + newLine;
@@ -134,12 +137,29 @@ namespace SQLiteQueryBuilder
 
         public string BuildSelectDistinct()
         {
+            aditionalSelectClauses = distinct;
+            return BuildSelect();
+        }
+
+        public string BuildSelect()
+        {
             string ret = string.Empty;
 
             ret += GetSelectClause();
             ret += BuildBase();
 
+            aditionalSelectClauses = string.Empty;
             return ret;
+        }
+
+        public string BuildSelectTop(int regs = 10)
+        {
+            if (regs <= 0)
+                throw new ArgumentOutOfRangeException();
+
+            aditionalSelectClauses = string.Format(top, regs);
+
+            return BuildSelect();
         }
 
         private string BuildBase(bool fromWithAlias = true)
@@ -189,7 +209,7 @@ namespace SQLiteQueryBuilder
         {
             string ret = string.Empty;
             string columns = GetColumns();
-            ret = string.Format(selectStructure, columns);
+            ret = string.Format(selectStructure, aditionalSelectClauses, columns);
             return ret;
         }
 

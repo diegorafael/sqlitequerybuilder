@@ -1,10 +1,9 @@
-﻿using SQLite;
-using System;
+﻿using System;
 
 namespace SQLiteQueryBuilder.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class ForeignKeyAttribute : IndexedAttribute
+    public class ForeignKeyAttribute : Attribute
     {
         public ForeignKeyAttribute(Type foreignType)
         {
