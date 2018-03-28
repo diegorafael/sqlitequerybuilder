@@ -167,7 +167,7 @@ Result:
 ```sql
 SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate 
 FROM Person Person 
-    LEFT JOIN Dog Dog ON  Person.Id = Dog.IdOwner  
+    JOIN Dog Dog ON  Person.Id = Dog.IdOwner  
 WHERE  Person.BirthDate < '1995-10-14 00:00:00'  AND 
 (  Dog.Name IN ( 'Spike', 'Thor' )  OR 
  Dog.FavoriteFood LIKE '%fruit%'  )
