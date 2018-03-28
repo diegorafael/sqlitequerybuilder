@@ -35,12 +35,13 @@ and amazing.
 | Lambda Expressions support on conditions | ![Developing][coding] | | Less parameters to query construction |
 | Union | ![Developing][coding] | | |
 | Inferred joins* | ![Soon][soon] | | Just pass table types as generic parameters |
+| `Exists` and `Not Exists` operators | ![Soon][soon] | | |
 | Group By | ![Soon][soon] | | |
 | Methods for return expression trees | ![Soon][soon] | | |
 | Class x Table and Property x Column mapping | ![Soon][soon] | | |
 | Custom conditions | ![Unavailable][nok] | | |
-| Order By | ![Unavailable][nok] | | |
 | Custom joins | ![Unavailable][nok] | | |
+| Order By | ![Unavailable][nok] | | |
 
 \* _Just for single keyed tables with attributes `PrimaryKey `and `ForeignKey` defined_
 
