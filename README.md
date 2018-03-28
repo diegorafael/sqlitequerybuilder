@@ -155,7 +155,7 @@ qb.AddJoin<Person, Dog>(JoinType.Inner /* Join type */, null /* alias for the ri
 var singleCondition = new Condition<Dog, double>(nameof(Dog.Weight) /* Left table property name */, BoolComparisonType.LessThanOrEqualTo /* Operator */, 7.5 /* raw value or right table property */);
 
 var innerCondOne = new Condition<Dog, string>(nameof(Dog.Name), BoolComparisonType.In, new object[] { "Spike", "Thor" }, LogicalOperatorType.Or /* logical operator for condition's concatenation */);
-var innerCondTwo = new Condition<Dog, string>(nameof(Dog.FavoriteFood), BoolComparisonType.Like, "%fruit%")
+var innerCondTwo = new Condition<Dog, string>(nameof(Dog.FavoriteFood), BoolComparisonType.Like, "%fruit%");
 
 var block = new ExpressionBlock(LogicalOperatorType.And /* logical operator for condition's concatenation */, innerCondOne, innerCondTwo ),
 
