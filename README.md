@@ -74,20 +74,20 @@ Supposing a simple class (database table equivallent):
 ```C#
 public class Person
 {
-	public long Id { get; set; }
-	public string Name { get; set; }
-	public DateTime BirthDate { get; set; }
-	public int Age { get { return Convert.ToInt32((DateTime.Now.Date - BirthDate.Date).TotalDays / 365); } }
-	
-	/*
-	   The `Age` property is read only, so it will be ignored by QueryBuilder on SELECT clause.
-         It's the same for that one with `Ignore` or relationships attribute, like these:
-	   
-	   [Ignore]
-	   public int Age { get; set; }
-	   [ManyToOne]
-	   public Person Father { get; set; }
-	*/
+    public long Id { get; set; }
+    public string Name { get; set; }
+    public DateTime BirthDate { get; set; }
+    public int Age { get { return Convert.ToInt32((DateTime.Now.Date - BirthDate.Date).TotalDays / 365); } }
+
+    /*
+       The `Age` property is read only, so it will be ignored by QueryBuilder on SELECT clause.
+       It's the same for that one with `Ignore` or relationships attribute, like these:
+
+       [Ignore]
+       public int Age { get; set; }
+       [ManyToOne]
+       public Person Father { get; set; }
+    */
 }
 ```
 
@@ -119,27 +119,27 @@ To exemplify joins, lets include a new property on `Person` and create `Dog` and
 ```C#
 public class Person
 {
-	(...) // As we set before
+    (...) // As we set before
 	
-	[OneToMany] // As it's a relationship, it'll be ignored on query
-	public List<Dog> Pets { get; set; }
+    [OneToMany] // As it's a relationship, it'll be ignored on query
+    public List<Dog> Pets { get; set; }
 }
 
 public class Dog
 {
-	public string Name { get; set; }
-	// A person id reference
-	public long IdOwner { get; set; }
-	public string FavoriteFood { get; set; }
-	public double Weight { get; set; }
+    public string Name { get; set; }
+    // A person id reference
+    public long IdOwner { get; set; }
+    public string FavoriteFood { get; set; }
+    public double Weight { get; set; }
 
-	[ManyToOne] // As it's a relationship, it'll be ignored on query
-	public Person Owner { get; set; } 
-	
-	public override void Speak()
-	{
-		System.Diagnostics.Debug.WriteLine("Rooff!");
-	}
+    [ManyToOne] // As it's a relationship, it'll be ignored on query
+    public Person Owner { get; set; } 
+
+    public override void Speak()
+    {
+	System.Diagnostics.Debug.WriteLine("Rooff!");
+    }
 }
 ```
 
