@@ -109,7 +109,7 @@ The results are:
 
 *qSimple, qDistinct and qTop* (Same body, just including or not the prefixes `DISTINCT` ou `TOP 7`)
 ```sql
-SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate // or `SELECT DISTINCT Person.Id, (...)` or just `SELECT Person.Id, (...)` or
+SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate -- or `SELECT DISTINCT Person.Id, (...)` or just `SELECT Person.Id, (...)` or
 FROM Person Person 
 WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
 ```
