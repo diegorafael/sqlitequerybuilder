@@ -93,7 +93,7 @@ public class Person
 
 ### Simple, distinct, count and top queries for persons born before Oct 14, 1995
 
-Easy and quick:
+Easy and quick! Just like this:
 
 ```C#
 QueryBuilder qb = new QueryBuilder<Person>();
@@ -105,18 +105,9 @@ string qDistinct = qb.BuildSelectDistinct();
 string qTop = qb.BuildSelectTop(7);
 ```
 
-The results are:
-
-*qSimple, qDistinct and qTop* (Same body, just including or not the prefixes `DISTINCT` ou `TOP 7`)
+**The results are:**
 ```sql
-SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate -- or `SELECT DISTINCT Person.Id, (...)` or just `SELECT Person.Id, (...)` or
-FROM Person Person 
-WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
-```
-
-*qCount*
-```sql
-SELECT COUNT(*) 
+SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate -- or 'SELECT COUNT(*) (...)' , 'SELECT DISTINCT Person.Id, (...)' or even 'SELECT Person.Id, (...)'
 FROM Person Person 
 WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
 ```
