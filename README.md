@@ -30,8 +30,8 @@ and amazing.
 | Join | ![Available][ok] | 0.0.1.0+ | Inner and Outer |
 | Single Conditions | ![Available][ok] | 0.0.1.0+ | |
 | Block conditions | ![Available][ok] | 0.0.1.0+ | |
-| Operators support | ![Available][ok] | | `OR,` `AND,` `LIKE,` `IN`, `NOT IN`, `>=`, `<=`, `>`, `<` and `<>` |
-| Custom column select | ![Available][ok] | | |
+| Operators support | ![Available][ok] | 0.0.1.0+ | `OR,` `AND,` `LIKE,` `IN`, `NOT IN`, `>=`, `<=`, `>`, `<` and `<>` |
+| Custom column select | ![Available][ok] | 0.0.1.0+ | |
 | Lambda Expressions support on conditions | ![Developing][coding] | | Less parameters to query construction |
 | Union | ![Developing][coding] | | |
 | Inferred joins* | ![Soon][soon] | | Just pass table types as generic parameters |
