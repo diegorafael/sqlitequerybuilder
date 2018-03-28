@@ -173,7 +173,7 @@ WHERE  Person.BirthDate < '1995-10-14 00:00:00'  AND
 (  Dog.Name IN ( 'Spike', 'Thor' )  OR 
  Dog.FavoriteFood LIKE '%fruit%'  )
  AND 
- Dog.Weight <= Double.7.5 
+ Dog.Weight <= 7.5 
 ```
 
 Contribution, bug report and questions
