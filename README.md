@@ -6,7 +6,7 @@ It’s an amazing, free and open source .net library to get rid of repetitive qu
 WHAT IT ISN'T
 --------------
 
-This is NOT an ORM framework nor database connection manager. All it do is compose sql query strings
+This is NOT an ORM framework nor database connection manager. All it does is compose sql query strings
 
 What is it?
 -----------
