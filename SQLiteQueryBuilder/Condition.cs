@@ -150,7 +150,7 @@ namespace SQLiteQueryBuilder
                         ret = string.Format(textValueFormat, ((TimeSpan)RightSideProperty).ToString(timeFormat));
                     else if (RightType == typeof(bool))
                         ret = Convert.ToInt16(RightSideProperty).ToString() ?? "0";
-                    else if (RightType == typeof(int) || RightType == typeof(long) || RightType == typeof(decimal) || RightType == typeof(float) || RightType == typeof(byte) || RightType.GetTypeInfo().IsAssignableFrom(typeof(Enum).GetTypeInfo()))
+                    else if (RightType == typeof(int) || RightType == typeof(long) || RightType == typeof(decimal) || RightType == typeof(float) || RightType == typeof(double) || RightType == typeof(byte) || RightType.GetTypeInfo().IsAssignableFrom(typeof(Enum).GetTypeInfo()))
                         ret = RightSideProperty.ToString();
                     else
                         ret = string.Concat(RightSideAlias, ".", RightSideProperty.ToString());

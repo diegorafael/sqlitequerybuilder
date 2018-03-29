@@ -50,6 +50,7 @@ namespace SQLiteQueryBuilder
         const string fromNoAliasStructure = "FROM {0} " + newLine;
         const string whereStructure = "WHERE {0} " + newLine;
         const string columnSeparator = ", ";
+        const string unionClause = "UNION ALL";
 
         public QueryBuilder(Type entityType, string alias = null, params string[] columnWithAlias)
         {
@@ -134,6 +135,21 @@ namespace SQLiteQueryBuilder
 
         //    return qb.BuildDelete();
         //}
+
+        public static string BuildUnion(params QueryBuilder[] queries)
+        {
+            string ret = string.Empty;
+
+            if (queries != null)
+            {
+                int count = queries.Count();
+                for (int i = 0; i < count; i++)
+                    if (queries[i] != null)
+                        ret = (string.IsNullOrWhiteSpace(ret) ? ret : string.Concat(ret, unionClause, newLine, newLine)) + queries[i].BuildSelectDistinct();
+            }
+
+            return ret;
+        }
 
         public string BuildSelectDistinct()
         {

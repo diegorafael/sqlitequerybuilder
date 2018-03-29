@@ -1,76 +1,126 @@
 SQLiteQueryBuilder
 ==================
 
- 
-
 It’s an amazing, free and open source library to get rid of repetitive queries
 writing.
-
- 
 
 What it is?
 -----------
 
- 
-
-It’s a simple tool to dynamically provide a string for SQLite statements using
-the C\# object notation, making **DAL **maintenance pretty easy and avoiding
+It’s a simple tool that use reflection to dynamically provide strings with SQLite statements starting by
+the C\# object notation, what making **DAL** maintenance pretty easy and avoid a lot of
 dangerous `Ctrl + C`, `Ctrl + V` based changes on annoying hell’s strings
 concatenations.
 
- 
-
 The library was designed to be basic enough to do the job, but allowing you to
-create an elaborated solution according to your projects architecture.
-
- 
+create elaborated solutions according to your projects architecture.
 
 ### **Targets**
 
+Wherever you have the need to build SQLite query strings it would fit.
  
-
-The main target is shared projects for mobile solutions, but wherever you have
-the need to build SQLite query strings it would fit.
-
- 
-
 ### **Features**
 
- 
+On the following board, you can see the library’s features plan. We’re glad to
+receive your suggestions about what more it can do to make our development cool
+and amazing.
 
-On the following board, you can see the library’s features:
+| **Feature** | **Available** | **Library version** | **Notes** |
+|:-----------:|:-------------:|:-------------------:|:---------:|
+| Select query | ![Available][ok] | 0.0.1.0+ | Simple, Distinct, Top, Count and custom |
+| Join | ![Available][ok] | 0.0.1.0+ | Inner and Outer |
+| Single Conditions | ![Available][ok] | 0.0.1.0+ | |
+| Block conditions | ![Available][ok] | 0.0.1.0+ | |
+| Operators support | ![Available][ok] | | `OR,` `AND,` `LIKE,` `IN`, `NOT IN`, `>=`, `<=`, `>`, `<` and `<>` |
+| Custom column select | ![Available][ok] | | |
+| Lambda Expressions support on conditions | ![Developing][coding] | | Less parameters to query construction |
+| Union | ![Developing][coding] | | |
+| Inferred joins* | ![Soon][soon] | | Just pass table types as generic parameters |
+| Group By | ![Soon][soon] | | |
+| Methods for return expression trees | ![Soon][soon] | | |
+| Class x Table and Property x Column mapping | ![Soon][soon] | | |
+| Custom conditions | ![Unavailable][nok] | | |
+| Order By | ![Unavailable][nok] | | |
+| Custom joins | ![Unavailable][nok] | | |
 
-| Feature | Available | Version |
-|---------|-----------|---------|
-|         |           |         |
+\* _Just for single keyed tables with attributes `PrimaryKey `and `ForeignKey` set_
 
-![](https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-ok-24.png)
-
-![](https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-cancel-24.png)
-
- 
-
- 
-
-Why it can be useful to me?
+Why it can be useful to you?
 ---------------------------
 
- 
+### Clean, Reusable and Maintenable
 
-Reuse
+```C#
+string param = "not";
+string[] filter = new [] { "easy", "quick"};
 
- 
+string phrase = "SELECT 'It\'s " + param + " just a SQL trauma' as [Main reason] ";
+phrase += "FROM Too_Many_Years_Facing_Cumbersome_Crazyness_Like_This as table ";
+phrase += " WHERE table.Maintenance " + param + " IN + ("  + string.Join(", ", filter) + ") ";
+```
 
-No hard-coded sql strings text
+* Enough with headaches wasting hours seeking for a single caracter messing the things up after just to add a column. Your time deserves more!
+* There's no reasonable reason to keep houdrands of classes to make the same queries where almost only columns and tables names are changed.
 
- 
+Coding without handle string keep the code dry and clean, allowing you to create reusable custom features to your data access strategies and makes the code fluent and pretty easy to understand and maintain.
 
 How to use
 ----------
 
- 
+Let's see some code!
 
-Contributions
+Supposing a simple class (database table equivallent):
+
+```C#
+public class Person
+{
+	public long Id { get; set; }
+	public string Name { get; set; }
+	public DateTime BirthDate { get; set; }
+	public int Age { get { return Convert.ToInt32((DateTime.Now.Date - BirthDate.Date).TotalDays / 365); } }
+}
+```
+
+### Simple, distinct, count and top queries for persons that born before Oct 14th '95
+
+Easy and quick:
+
+```C#
+QueryBuilder qb = new QueryBuilder<Person>();
+var filter = new Condition<Person, DateTime>(nameof(Person.BirthDate), BoolComparisonType.LessThan, new DateTime(1995, 10, 14));
+qb.AddWhereCondition(filter);
+
+string qCount = qb.BuildCount();
+string qDistinct = qb.BuildSelectDistinct();
+string qTop = qb.BuildSelectTop(7);
+```
+
+The results are:
+
+*qSimple, qDistinct and qTop* (Same body, just including or not the prefixes `DISTINCT` ou `TOP 7`)
+```sql
+SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate // or `SELECT DISTINCT Person.Id, (...)` or just `SELECT Person.Id, (...)` or
+FROM Person Person 
+WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
+```
+
+*qCount*
+```sql
+SELECT COUNT(*) 
+FROM Person Person 
+WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
+```
+
+
+### Decorating cla
+
+Contribute
 -------------
 
- 
+Some Texts
+
+
+[ok]: https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-ok-24.png
+[nok]: https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-cancel-24.png
+[soon]: https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-inactive-state-24.png
+[coding]: https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-source-code-24.png
