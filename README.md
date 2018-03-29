@@ -1,13 +1,18 @@
 SQLiteQueryBuilder
 ==================
 
-It’s an amazing, free and open source library to get rid of repetitive queries
-writing.
+It’s an amazing, free and open source .net library to get rid of repetitive queries writing.
+
+WHAT IT ISN'T:
+--------------
+
+This is NOT an ORM framework nor database connection manager. All it do is compose sql query strings
 
 What is it?
 -----------
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
-It’s a simple tool that use reflection to dynamically provide strings with SQLite statements starting by
+It’s a simple tool that use reflection to dynamically provide strings with SQLite statements using
 the C\# object notation, what making **DAL** maintenance pretty easy and avoid a lot of
 dangerous `Ctrl + C`, `Ctrl + V` based changes on strings annoying concatenations.
 
@@ -32,8 +37,8 @@ and amazing.
 | Block conditions | ![Available][ok] | 0.0.1.0+ | |
 | Operators support | ![Available][ok] | 0.0.1.0+ | `OR,` `AND,` `LIKE,` `IN`, `NOT IN`, `>=`, `<=`, `>`, `<` and `<>` |
 | Custom column select | ![Available][ok] | 0.0.1.0+ | |
+| Union | ![Available][ok] | 0.0.1.5+ | |
 | Lambda Expressions support on conditions | ![Developing][coding] | | Less parameters to query construction |
-| Union | ![Developing][coding] | | |
 | Inferred joins* | ![Soon][soon] | | Just pass table types as generic parameters |
 | `Exists` and `Not Exists` operators | ![Soon][soon] | | |
 | Group By | ![Soon][soon] | | |
