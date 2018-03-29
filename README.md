@@ -3,7 +3,7 @@ SQLiteQueryBuilder
 
 It’s an amazing, free and open source .net library to get rid of repetitive queries writing.
 
-WHAT IT ISN'T:
+WHAT IT ISN'T
 --------------
 
 This is NOT an ORM framework nor database connection manager. All it do is compose sql query strings
