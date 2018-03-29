@@ -39,8 +39,8 @@ and amazing.
 | Custom column select | ![Available][ok] | 0.0.1.0+ | |
 | Union | ![Available][ok] | 0.0.1.5+ | |
 | Lambda Expressions support on conditions | ![Developing][coding] | | Less parameters to query construction |
-| Inferred joins* | ![Soon][soon] | | Just pass table types as generic parameters |
-| `Exists` and `Not Exists` operators | ![Soon][soon] | | |
+| Inferred joins* | ![Developing][coding] | | Just pass table types as generic parameters |
+| `Exists` and `Not Exists` operators | ![Developing][coding] | | |
 | Group By | ![Soon][soon] | | |
 | Methods for return expression trees | ![Soon][soon] | | |
 | Class x Table and Property x Column mapping | ![Soon][soon] | | |
