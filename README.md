@@ -97,7 +97,7 @@ public class Person
 }
 ```
 
-### Simple, distinct, count and top queries for persons born before Oct 14, 1995
+### Simple, distinct, count and top queries for persons born before October 14, 1995
 
 Easy and quick! Just like this:
 
