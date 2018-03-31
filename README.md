@@ -141,7 +141,7 @@ public class Dog
     [ManyToOne] // As it's a relationship, it'll be ignored on query
     public Person Owner { get; set; } 
 
-    public override void Speak()
+    public void Speak()
     {
 	System.Diagnostics.Debug.WriteLine("Rooff!");
     }
