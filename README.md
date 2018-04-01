@@ -4,15 +4,9 @@ SQLiteQueryBuilder
 It’s an amazing, free and open source .net library to get rid of repetitive queries writing.
 
 Donations
+---------
 
-Did you like it? Do you want to see it get better? Make a donation to help us with, maintenance and improving!
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="6QB45R5CUM8GE">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-</form>
+Did you like it? Did it useful to you? Do you want to see it get better? You can give us a cup of coffee to help with maintenance and improving! [![Donate][donate]](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6QB45R5CUM8GE) 
 
 WHAT IT ISN'T
 --------------
@@ -204,3 +198,4 @@ You can find me on StackOverflow if you have questions related to the use of `SQ
 [nok]: https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-cancel-24.png
 [soon]: https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-inactive-state-24.png
 [coding]: https://raw.githubusercontent.com/diegorafael/resources/master/images/icons8-source-code-24.png
+[donate]: https://img.shields.io/badge/Donate-PayPal-green.svg
