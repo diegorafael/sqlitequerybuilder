@@ -3,6 +3,17 @@ SQLiteQueryBuilder
 
 It’s an amazing, free and open source .net library to get rid of repetitive queries writing.
 
+Donations
+
+Did you like it? Do you want to see it get better? Make a donation to help us with, maintenance and improving!
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="6QB45R5CUM8GE">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+</form>
+
 WHAT IT ISN'T
 --------------
 
