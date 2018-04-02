@@ -42,9 +42,9 @@ and amazing.
 | Operators support | ![Available][ok] | 0.0.1.0+ | `OR,` `AND,` `LIKE,` `IN`, `NOT IN`, `>=`, `<=`, `>`, `<` and `<>` |
 | Custom column select | ![Available][ok] | 0.0.1.0+ | |
 | Union | ![Available][ok] | 0.0.1.5+ | |
+| Inferred joins* | ![Available][ok] | 0.0.1.6+| Just pass table types as generic parameters |
+| `Exists` and `Not Exists` operators | ![Available][ok] | 0.0.1.6+ | |
 | Lambda Expressions support on conditions | ![Developing][coding] | | Less parameters to query construction |
-| Inferred joins* | ![Developing][coding] | | Just pass table types as generic parameters |
-| `Exists` and `Not Exists` operators | ![Developing][coding] | | |
 | Group By | ![Soon][soon] | | |
 | Methods for return expression trees | ![Soon][soon] | | |
 | Class x Table and Property x Column mapping | ![Soon][soon] | | |
@@ -183,6 +183,72 @@ WHERE  Person.BirthDate < '1995-10-14 00:00:00'  AND
  Dog.FavoriteFood LIKE '%fruit%'  )
  AND 
  Dog.Weight <= 7.5 
+```
+
+### Using Join inference
+
+To use Join inference, you must decorate the `PrimaryKey` and `ForeignKey` properties on its respective classes.
+
+For example, in our `Person` and `Dog` classes, we should chande the properties declaration to this:
+
+```C#
+public class Person
+{
+    [Primarykey]
+    public long Id { get; set; }
+    
+    (...)
+}
+
+public class Dog
+{
+    [Primarykey]
+    public long Id { get; set; }
+    
+    [ForeignKey(typeof(Person))]
+    public long IdOwner { get; set; }
+    (...)
+}
+```
+Now you are able to do:
+
+```C#
+QueryBuilder qb = new QueryBuilder<Person>("owner"); // Giving the 'owner' alias to 'Person'
+qb.AddJoin<Person,Dog>(); // To use LeftJoin, just add a `JoinType.Outer` parameter to method.
+
+qb.BuildSelectDistinct();
+```
+Result:
+
+```sql
+SELECT DISTINCT owner.Id, owner.Name, owner.BirthDate 
+FROM Person owner 
+    INNER JOIN Dog dog ON  owner.Id = dog.IdOwner  
+```
+
+### The `Exists` and `Not Exists` operator
+
+To get the `Exists` and `Not Exists` operators, you must build an `ExistenceCondition` using a inner query as parameter. For example, if we want to get Persons that don't have a `Dog`:
+
+```C#
+QueryBuilder qb = new SQLiteQueryBuilder.QueryBuilder<Person>("P");
+
+QueryBuilder innerQuery = new SQLiteQueryBuilder.QueryBuilder<Dog>("D");
+innerQuery.AddWhereCondition(new Condition<Person, Dog>(nameof(Person.Id), "P", BoolComparisonType.Equals, nameof(Dog.IdOwner), "D" ));
+
+qb.AddWhereCondition(new ExistenceCondition(innerQuery, ExistenceType.NotExists));
+
+qb.BuildSelectDistinct();
+```
+Result:
+```SQL
+SELECT DISTINCT P.Id, P.Name, P.BirthDate 
+FROM Person P 
+WHERE NOT EXISTS ( 
+    SELECT  1 
+    FROM Dog D 
+    WHERE P.Id = D.IdOwner 
+ ) 
 ```
 
 Contribution, bug report and questions
