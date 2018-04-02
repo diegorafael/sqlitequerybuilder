@@ -1,8 +1,0 @@
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\bin\Debug\SQLiteQueryBuilderTest.dll
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\bin\Debug\SQLiteQueryBuilderTest.pdb
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\bin\Debug\SQLiteQueryBuilder.dll
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\bin\Debug\SQLiteQueryBuilder.pdb
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\obj\Debug\SQLiteQueryBuilderTest.csprojResolveAssemblyReference.cache
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\obj\Debug\SQLiteQueryBuilderTest.csproj.CoreCompileInputs.cache
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\obj\Debug\SQLiteQueryBuilderTest.dll
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilderTest\obj\Debug\SQLiteQueryBuilderTest.pdb

@@ -1,4 +1,5 @@
 ﻿using SQLiteQueryBuilder.Attributes;
+using SQLiteQueryBuilder.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +31,9 @@ namespace SQLiteQueryBuilder
         }
         /*
          *   ESTE CÓDIGO SERÁ USADO NA CAMADA QUE IMPLEMENTA O REPOSITÓRIO RECURSIVO
-         * 
-        internal static string GetPrimaryKeyPropertyName(object orign)
+         */
+
+        public static string GetPrimaryKeyPropertyName(object orign)
         {
             string ret = null;
             var props = orign.GetType().GetRuntimeProperties();
@@ -42,6 +44,22 @@ namespace SQLiteQueryBuilder
                     ret = prop.Name;
                     break;
                 }
+
+            return ret;
+        }
+        
+        public static string[] GetForeignKeysPropertyNames<T>(object orign) where T : class
+        {
+            string[] ret = new string[0];
+            var props = orign.GetType().GetRuntimeProperties();
+
+            foreach (var prop in props)
+            {
+                var attr = GetPropertyAttribute<ForeignKeyAttribute>(prop);
+
+                if (attr != null && typeof(T).GetTypeInfo().IsAssignableFrom(attr.ForeignType.GetTypeInfo()) )
+                    ret = ret.Concat(new[] { prop.Name }).ToArray();
+            }
 
             return ret;
         }
@@ -83,18 +101,18 @@ namespace SQLiteQueryBuilder
             return ret;
         }
 
-        private static object GetForeignKeyValue(object orign, string foreignEntityPropertyName)
-        {
-            object ret = null;
-            var prop = orign.GetType().GetRuntimeProperty(foreignEntityPropertyName);
-            var pType = prop.PropertyType;
+        //private static object GetForeignKeyValue(object orign, string foreignEntityPropertyName)
+        //{
+        //    object ret = null;
+        //    var prop = orign.GetType().GetRuntimeProperty(foreignEntityPropertyName);
+        //    var pType = prop.PropertyType;
 
-            string fkProp = GetForeignKeyPropertyName(orign, pType);
-            if (!string.IsNullOrWhiteSpace(fkProp))
-                ret = orign.GetType().GetRuntimeProperty(fkProp).GetValue(orign);
+        //    string fkProp = GetForeignKeyPropertyName(orign, pType);
+        //    if (!string.IsNullOrWhiteSpace(fkProp))
+        //        ret = orign.GetType().GetRuntimeProperty(fkProp).GetValue(orign);
 
-            return ret;
-        }
+        //    return ret;
+        //}
 
         private static string GetForeignKeyPropertyName(object orign, Type foreignEntityPropertyType)
         {
@@ -112,10 +130,6 @@ namespace SQLiteQueryBuilder
             }
 
             return ret;
-        } 
-        
-        
-        
-        */
+        }
     }
 }

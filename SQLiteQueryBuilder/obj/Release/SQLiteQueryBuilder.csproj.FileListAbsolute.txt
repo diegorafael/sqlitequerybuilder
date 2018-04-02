@@ -1,5 +1,0 @@
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilder\bin\Release\SQLiteQueryBuilder.dll
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilder\bin\Release\SQLiteQueryBuilder.pdb
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilder\obj\Release\SQLiteQueryBuilder.csproj.CoreCompileInputs.cache
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilder\obj\Release\SQLiteQueryBuilder.dll
-C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\SQLiteQueryBuilder\obj\Release\SQLiteQueryBuilder.pdb

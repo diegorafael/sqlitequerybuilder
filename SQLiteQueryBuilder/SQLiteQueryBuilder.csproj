@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Attributes\EnumMetadataAttribute.cs" />
+    <Compile Include="Attributes\PrimaryKeyAttribute.cs" />
     <Compile Include="Attributes\ForeignKeyAttribute.cs" />
     <Compile Include="Attributes\ManyToOneAttribute.cs" />
     <Compile Include="Attributes\ManyToManyAttribute.cs" />
@@ -44,12 +45,15 @@
     <Compile Include="Attributes\IgnoreAttribute.cs" />
     <Compile Include="Attributes\RelationshipAttribute.cs" />
     <Compile Include="BaseBoolExpression.cs" />
+    <Compile Include="Enumerations\ExistenceType.cs" />
+    <Compile Include="ExistenceCondition.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="ExpressionBlock.cs" />
     <Compile Include="Enumerations\BoolComparisonType.cs" />
     <Compile Include="Enumerations\LogicalOperatorType.cs" />
     <Compile Include="Enumerations\JoinType.cs" />
     <Compile Include="Enumerations\RelationshipType.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\EnumerationExtensions.cs" />
     <Compile Include="IBoolExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

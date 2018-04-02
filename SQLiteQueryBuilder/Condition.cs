@@ -53,7 +53,7 @@ namespace SQLiteQueryBuilder
         const string textValueFormat = "'{0}'";
         const string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
         const string timeFormat = @"hh\:mm\:ss";
-        
+
         public Condition(Type leftType, string leftSideAlias, string leftSidePropertyName, Type rightType, string rightSideAlias, object rightSideValueOrProperty = null, BoolComparisonType comparison = BoolComparisonType.Equals, LogicalOperatorType sufixOperator = LogicalOperatorType.And)
         {
             LeftType = leftType;

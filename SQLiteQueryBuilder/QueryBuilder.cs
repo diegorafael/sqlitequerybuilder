@@ -60,18 +60,103 @@ namespace SQLiteQueryBuilder
             EntityType = entityType;
 
             if (string.IsNullOrWhiteSpace(alias))
-                alias = EntityType.Name;
+                alias = GetNewAliasTo(EntityType);
             Alias = alias;
 
-            if (columnWithAlias == null || columnWithAlias.Length == 0 || string.IsNullOrWhiteSpace(string.Join(columnSeparator, columnWithAlias)))
-                columnWithAlias = GetDefaultColumns();
-            columnsWithAlias = columnWithAlias;
+            SetSelectColumns(columnWithAlias);
+        }
+
+        public void AddJoin<TParent, TChild>(JoinType joinType = JoinType.Inner, string foreignKeyName = "") where TParent : class where TChild : class
+        {
+            // Get the parent primaryKey
+            var fakeParent = Activator.CreateInstance<TParent>();
+            var fakeChild = Activator.CreateInstance<TChild>();
+
+            var pk = Util.GetPrimaryKeyPropertyName(fakeParent);
+            var fks = Util.GetForeignKeysPropertyNames<TParent>(fakeChild);
+
+            if (string.IsNullOrWhiteSpace(pk) || fks == null || fks.Length == 0 || fks.Any(i => string.IsNullOrWhiteSpace(i)))
+                throw new InvalidOperationException(string.Format("The '{0}' must have a '{1}' and '{2}' must have a '{3}' attributes to use inferred join.", typeof(TParent).Name, nameof(PrimaryKeyAttribute), typeof(TChild).Name, nameof(ForeignKeyAttribute)));
+
+            if (fks.Length > 1 && (string.IsNullOrWhiteSpace(foreignKeyName) || !fks.Any(f => f == foreignKeyName)))
+                throw new InvalidOperationException("There is more than one reference to {0} in {1}. You must specify a valid Foreign Key Property name to use.");
+
+            var fk = fks.FirstOrDefault(f => string.IsNullOrWhiteSpace(foreignKeyName) || f == foreignKeyName);
+
+            var leftAlias = GetLastAliasOf<TParent>();
+            var rightAlias = GetNewAliasTo<TChild>();
+            IBoolExpression joinCondition = new Condition<TParent, TChild>(pk, leftAlias, BoolComparisonType.Equals, fk, rightAlias);
+            AddJoin<TParent, TChild>(joinType, rightAlias, joinCondition);
+        }
+
+        public string GetNewAliasTo<T>(T classType) where T : class
+        {
+            return GetNewAliasTo<T>();
+        }
+        
+        public string GetNewAliasTo<T>() where T : class
+        {
+            string ret = string.Empty;
+
+            ret = GetNextAlias(GetDefaultAliasTo<T>());
+
+            return ret;
+        }
+
+        internal static string GetDefaultAliasTo<T>()
+        {
+            return typeof(T).Name.ToLower();
+        }
+
+        internal static string GetDefaultAliasTo<T>(T classType)
+        {
+            return GetDefaultAliasTo<T>();
+        }
+
+        private string GetNextAlias(string intendedAlias)
+        {
+            string ret = intendedAlias;
+            
+            if (intendedAlias == Alias || joins.Any(j => intendedAlias == j.Alias))
+                ret = GetNextAlias(NextSequence(ret));
+
+            return ret;
+        }
+
+        private string NextSequence(string text)
+        {
+            string ret = text;
+            int num, lastIndex = -1;
+
+            var seq = text.ToCharArray();
+
+            for (int i = seq.Length; i > 0; i--)
+                if (text.Substring(i - 1).IsNumeric())
+                    lastIndex = i - 1;
+                else
+                    break;
+
+            num = Convert.ToInt32(text.Substring(lastIndex)) + 1;
+
+            ret = text.Substring(0, lastIndex) + num.ToString();
+
+            return ret;
+        }
+
+        public string GetLastAliasOf<T>() where T : class
+        {
+            string ret = joins.LastOrDefault(j => j.TRight == typeof(T))?.Alias;
+
+            if (string.IsNullOrWhiteSpace(ret))
+                ret = EntityType == typeof(T) ? Alias : ret;
+
+            return ret;
         }
 
         public void AddJoin<L, R>(JoinType joinType, string alias = null, params IBoolExpression[] condition) where L : class where R : class
         {
             if (string.IsNullOrWhiteSpace(alias))
-                alias = typeof(R).Name;
+                alias = GetNewAliasTo<R>();
 
             ValidateJoinInclusion<L, R>(joinType, alias, condition);
 
@@ -92,6 +177,18 @@ namespace SQLiteQueryBuilder
 
             if (!joins.Any(j => j.TLeft == typeof(L) || j.TRight == typeof(L)) && typeof(L) != EntityType)
                 throw new InvalidOperationException($"The Left Type must be an previously added type in the join list or reference the parent type ({ EntityType.Name }).");
+        }
+
+        internal string[] GetSelectColumns()
+        {
+            return columnsWithAlias;
+        }
+
+        internal void SetSelectColumns(params string[] columnWithAlias)
+        {
+            if (columnWithAlias == null || columnWithAlias.Length == 0 || string.IsNullOrWhiteSpace(string.Join(columnSeparator, columnWithAlias)))
+                columnWithAlias = GetDefaultColumns();
+            columnsWithAlias = columnWithAlias;
         }
 
         public void AddWhereCondition(params IBoolExpression[] condition)
@@ -297,7 +394,7 @@ namespace SQLiteQueryBuilder
                 TRight = rightType;
 
                 if (string.IsNullOrWhiteSpace(alias))
-                    alias = TRight.Name;
+                    alias = QueryBuilder.GetDefaultAliasTo(TRight);
 
                 Alias = alias;
                 type = _type;

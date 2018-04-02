@@ -3,7 +3,7 @@ using System;
 
 namespace SQLiteQueryBuilder
 {
-    internal class Relationship
+    public class Relationship
     {
         public Relationship(string name, Type relatedType, EnumRelationshipType relationshipType)
         {
