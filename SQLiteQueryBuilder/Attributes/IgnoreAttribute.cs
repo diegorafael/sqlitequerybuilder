@@ -3,8 +3,8 @@
 namespace SQLiteQueryBuilder.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public abstract class IgnoreAttribute : Attribute
+    public class IgnoreAttribute : Attribute
     {
-        protected IgnoreAttribute(){ }
+        public IgnoreAttribute(){ }
     }
 }

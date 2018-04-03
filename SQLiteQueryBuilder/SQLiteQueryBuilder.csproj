@@ -53,6 +53,7 @@
     <Compile Include="Enumerations\LogicalOperatorType.cs" />
     <Compile Include="Enumerations\JoinType.cs" />
     <Compile Include="Enumerations\RelationshipType.cs" />
+    <Compile Include="Extensions\QueryBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\EnumerationExtensions.cs" />
     <Compile Include="IBoolExpression.cs" />
