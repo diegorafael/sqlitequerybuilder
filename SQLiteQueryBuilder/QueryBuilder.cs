@@ -60,7 +60,7 @@ namespace SQLiteQueryBuilder
             EntityType = entityType;
 
             if (string.IsNullOrWhiteSpace(alias))
-                alias = GetNewAliasTo(EntityType);
+                alias = GetNewAliasToSelf();
             Alias = alias;
 
             SetSelectColumns(columnWithAlias);
@@ -76,7 +76,7 @@ namespace SQLiteQueryBuilder
             var fks = Util.GetForeignKeysPropertyNames<TParent>(fakeChild);
 
             if (string.IsNullOrWhiteSpace(pk) || fks == null || fks.Length == 0 || fks.Any(i => string.IsNullOrWhiteSpace(i)))
-                throw new InvalidOperationException(string.Format("The '{0}' must have a '{1}' and '{2}' must have a '{3}' attributes to use inferred join.", typeof(TParent).Name, nameof(PrimaryKeyAttribute), typeof(TChild).Name, nameof(ForeignKeyAttribute)));
+                throw new InvalidOperationException(string.Format("The '{0}' must have the '{1}' and '{2}' must have the '{3}' attributes to use inferred join.", typeof(TParent).Name, nameof(PrimaryKeyAttribute), typeof(TChild).Name, nameof(ForeignKeyAttribute)));
 
             if (fks.Length > 1 && (string.IsNullOrWhiteSpace(foreignKeyName) || !fks.Any(f => f == foreignKeyName)))
                 throw new InvalidOperationException("There is more than one reference to {0} in {1}. You must specify a valid Foreign Key Property name to use.");
@@ -88,11 +88,6 @@ namespace SQLiteQueryBuilder
             IBoolExpression joinCondition = new Condition<TParent, TChild>(pk, leftAlias, BoolComparisonType.Equals, fk, rightAlias);
             AddJoin<TParent, TChild>(joinType, rightAlias, joinCondition);
         }
-
-        public string GetNewAliasTo<T>(T classType) where T : class
-        {
-            return GetNewAliasTo<T>();
-        }
         
         public string GetNewAliasTo<T>() where T : class
         {
@@ -103,17 +98,31 @@ namespace SQLiteQueryBuilder
             return ret;
         }
 
+        protected string GetNewAliasToSelf()
+        {
+            var aliasGenerator = GetType().GetRuntimeMethod(nameof(GetNewAliasTo), new Type[0])?.MakeGenericMethod(EntityType);
+
+            return aliasGenerator?.Invoke(this, new object[] { })?.ToString();
+        }
+
+        internal static string GetDefaultAliasTo(object obj)
+        {
+            var fake = new QueryBuilder(obj.GetType());
+            return fake.Alias;
+        }
+
+        internal static string GetDefaultAliasTo(Type obj)
+        {
+            var fake = new QueryBuilder(obj);
+            return fake.Alias;
+        }
+
         internal static string GetDefaultAliasTo<T>()
         {
             return typeof(T).Name.ToLower();
         }
 
-        internal static string GetDefaultAliasTo<T>(T classType)
-        {
-            return GetDefaultAliasTo<T>();
-        }
-
-        private string GetNextAlias(string intendedAlias)
+        internal string GetNextAlias(string intendedAlias)
         {
             string ret = intendedAlias;
             
@@ -275,6 +284,11 @@ namespace SQLiteQueryBuilder
             return BuildSelect();
         }
 
+        public string BuildRankedSelect()
+        {
+
+        }
+
         private string BuildBase(bool fromWithAlias = true)
         {
             string ret = string.Empty;
@@ -376,56 +390,5 @@ namespace SQLiteQueryBuilder
 
         public int JoinClausesCount { get { return joins.Length; } }
         public int WhereConditionsCount { get { return whereRestrictions.Length; } }
-
-        private class Join
-        {
-            public Type TLeft { get; }
-            public Type TRight { get; }
-
-            const string joinStructure = "    {0} JOIN {1} {2} ON {3} \n";
-            JoinType type;
-            List<IBoolExpression> conditions = new List<IBoolExpression>();
-
-            public string Alias { get; }
-
-            public Join(Type leftType, Type rightType, JoinType _type, string alias = null, params IBoolExpression[] condition)
-            {
-                TLeft = leftType;
-                TRight = rightType;
-
-                if (string.IsNullOrWhiteSpace(alias))
-                    alias = QueryBuilder.GetDefaultAliasTo(TRight);
-
-                Alias = alias;
-                type = _type;
-                foreach (var cond in condition)
-                    conditions.Add(cond);
-            }
-
-            public string GetJoinStatement()
-            {
-                string ret = string.Empty;
-                string criteria = string.Empty;
-
-                for (int i = 0; i < conditions.Count; i++)
-                {
-                    criteria += conditions[i].GetStatement();
-                    if (i + 1 < conditions.Count)
-                        criteria += conditions[i].GetLogicalOperatorString();
-                }
-
-                ret = string.Format(joinStructure, type.GetAttribute<EnumMetadataAttribute>().Value.ToString(), TRight.Name, Alias, criteria);
-
-                return ret;
-            }
-        }
-
-        private class Join<TLeft, TRight> : Join
-        {
-            public Join(JoinType _type, string alias = null, params IBoolExpression[] condition) : base(typeof(TLeft), typeof(TRight), _type, alias, condition)
-            {
-
-            }
-        }
     }
 }

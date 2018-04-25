@@ -60,7 +60,7 @@ namespace SQLiteQueryBuilder
             RightType = rightType;
 
             if (string.IsNullOrWhiteSpace(leftSideAlias))
-                leftSideAlias = leftType.Name;
+                leftSideAlias = QueryBuilder.GetDefaultAliasTo(leftType);
 
             if (string.IsNullOrWhiteSpace(rightSideAlias))
                 rightSideAlias = rightType.Name;

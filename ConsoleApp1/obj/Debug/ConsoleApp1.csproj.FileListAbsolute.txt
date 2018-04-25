@@ -1,0 +1,9 @@
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\bin\Debug\SQLiteQueryBuilder.dll
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\bin\Debug\SQLiteQueryBuilder.pdb
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\obj\Debug\ConsoleApp1.csprojResolveAssemblyReference.cache
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+C:\Users\mauri\Documents\Diego\Git\sqlitequerybuilder\ConsoleApp1\obj\Debug\ConsoleApp1.pdb

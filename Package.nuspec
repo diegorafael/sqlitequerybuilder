@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>SQLiteQueryBuilder</id>
-    <version>0.0.1.007</version>
+    <version>0.0.1.009</version>
     <authors>Diego Rafael O. Souza</authors>
     <owners>Diego Rafael O. Souza</owners>
     <licenseUrl>https://github.com/diegorafael/sqlitequerybuilder/blob/master/LICENSE</licenseUrl>
