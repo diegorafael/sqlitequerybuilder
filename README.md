@@ -1,12 +1,12 @@
 SQLiteQueryBuilder
 ==================
 
-It’s an amazing, free and open source .net library to get rid of repetitive queries writing.
+It’s an amazing, free and open source .net library to get rid of repetitive query writing.
 
 Donations
 ---------
 
-Did you like it? Did it useful to you? Do you want to see it get better? You can give us a cup of coffee to help with maintenance and improving! [![Donate][donate]](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6QB45R5CUM8GE) 
+Did you like it? Did it useful for you? Do you want to see it get even better? You can give us a cup of coffee to help with maintenance and improving! [![Donate][donate]](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6QB45R5CUM8GE) 
 
 WHAT IT ISN'T
 --------------
@@ -25,7 +25,7 @@ create elaborated solutions according to your project's architecture.
 
 ### **Targets**
 
-Wherever you have the need to build SQLite query strings it would fit.
+Every .Net solution wherever you have the need to build SQLite query strings it would fit. **Please let me know if you're getting troubles with a specific platform.**
  
 ### **Features**
 
@@ -54,7 +54,7 @@ and amazing.
 
 \* _Just for single keyed tables with attributes `PrimaryKey `and `ForeignKey` defined_
 
-Why can it be useful to you?
+Why can it be useful for you?
 ---------------------------
 
 ### Clean, Reusable and Maintenable
@@ -72,14 +72,14 @@ phrase += " WHERE table.Maintenance " + param + " IN + ("  + string.Join(", ", f
 * There's no reasonable reason to keep thousands of classes to make the same queries where almost only columns and tables names are changed
 * You get much more performance than using the common built-in lambda based feature (they loads the whole table data to memory to perform filters)
 
-Coding without handle string keep the code dry and clean, allowing you to create reusable custom features to your data access strategies and makes the code fluent and pretty easy to understand and maintain.
+Coding without handle string concatenations keep the code dry and clean, allowing you to create reusable custom features to your data access strategies and makes the code fluent and pretty easy to understand and maintain.
 
 How to use
 ----------
 
 Let's see some code!
 
-Supposing a simple class (database table equivallent):
+Supposing a simple class (database table equivalent):
 
 ```C#
 public class Person
@@ -106,25 +106,42 @@ public class Person
 Easy and quick! Just like this:
 
 ```C#
+// Instantiate it setting the table type
 QueryBuilder qb = new QueryBuilder<Person>();
+
+// Create conditions
 var filter = new Condition<Person, DateTime>(nameof(Person.BirthDate), BoolComparisonType.LessThan, new DateTime(1995, 10, 14));
+
+// Add conditions to querybuilder
 qb.AddWhereCondition(filter);
 
+// Just run your desired method
 string qCount = qb.BuildCount();
 string qDistinct = qb.BuildSelectDistinct();
 string qTop = qb.BuildSelectTop(7);
 ```
 
-**The results are:**
+**The results are, respectively:**
 ```sql
-SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate -- or 'SELECT COUNT(*) (...)' , 'SELECT DISTINCT Person.Id, (...)' or even 'SELECT Person.Id, (...)'
+-- Count
+SELECT COUNT(*)
+FROM Person Person 
+WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
+
+-- Distinct
+SELECT DISTINCT Person.Id, Person.Name, Person.BirthDate
+FROM Person Person 
+WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
+
+-- Top
+SELECT TOP 7 Person.Id, Person.Name, Person.BirthDate
 FROM Person Person 
 WHERE  Person.BirthDate < '1995-10-14 00:00:00' 
 ```
 
-### Joins and Condition Blocks
+### Joins and Condition Blocks (complex queries)
 
-To exemplify joins, lets include a new property on `Person` and create `Dog` and `Cat` classes:
+To exemplify joins, lets include a new property on `Person` and create the `Dog` class:
 
 ```C#
 public class Person
@@ -153,13 +170,15 @@ public class Dog
 }
 ```
 
-Now, lets take persons with the previous filter conditions and additionally have a dog with one of the names of the list [ "Spike", "Thor" ] **OR** the dog's `FavoriteFood` have the word "fruit" **AND** weighs less than 7.5kg.
+Now, lets take persons with the previous filter conditions and additionally have a dog with one of the names of the list \[ "Spike", "Thor" \] **OR** the dog's `FavoriteFood` have the word "fruit" **AND** weighs less than 7.5kg.
 
 Just add this statements to the previous query:
 
 ```C#
+// Create the join conditions
 var joinCondition = new Condition<Person, Dog>(nameof(Person.Id), BoolComparisonType.Equals, nameof(Dog.IdOwner));
 
+// Explicitly add the join with the join condition
 qb.AddJoin<Person, Dog>(JoinType.Inner /* Join type */, null /* alias for the right type table */, joinCondition);
 
 var singleCondition = new Condition<Dog, double>(nameof(Dog.Weight) /* Left table property name */, BoolComparisonType.LessThanOrEqualTo /* Operator */, 7.5 /* raw value or right table property */);
@@ -255,8 +274,6 @@ Contribution, bug report and questions
 --------------------------------------
 
 Contributions are welcome! Feel free to report if you find a bug or if you want a new feature or give any kind of suggestions.
-
-You can find me on StackOverflow if you have questions related to the use of `SQLiteQueryBuilder`.
 
 ***Have a nice coding!***
 
